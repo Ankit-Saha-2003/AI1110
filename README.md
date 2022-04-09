@@ -11,3 +11,7 @@ Instructor: Dr. G. V. V. Sharma (https://github.com/gadepall)
 - Assignment 1 
   - 29 March 2022 
   - [ICSE 2019 Grade 10 Question 1(b)](https://github.com/gadepall/papers/blob/master/icse/math/10/2019/511%20MAT1%20-%202019.pdf)
+
+- Assignment 2
+  - 8 April 2022
+  - [ICSE 2019 Grade 12 Question 1(ii)](https://github.com/gadepall/papers/blob/master/icse/math/12/2019/860%20MATHEMATICS%20QP.pdf)
