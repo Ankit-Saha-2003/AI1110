@@ -15,3 +15,7 @@ Instructor: Dr. G. V. V. Sharma (https://github.com/gadepall)
 - Assignment 2
   - 8 April 2022
   - [ICSE 2019 Grade 12 Question 1(ii)](https://github.com/gadepall/papers/blob/master/icse/math/12/2019/860%20MATHEMATICS%20QP.pdf)
+
+- Assignment 3
+  - 16 April 2022
+  - [CBSE Statistics Grade 9 Exercise 14.1.1](https://github.com/gadepall/ncert-textbooks/blob/main/math/9/iemh114.pdf)
