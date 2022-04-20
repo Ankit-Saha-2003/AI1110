@@ -1,0 +1,64 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{Assignment 4 \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \normalsize  20 April 2022 \\ \vspace*{20pt} \Large CBSE Probability Grade 9}
+
+
+\begin{document}
+	% The title
+	\maketitle
+	
+	% The question
+	\textbf{Example 7} 
+	The percentage of marks obtained by a student in the monthly unit tests are given below:
+	\begin{table}[ht!]
+		\centering
+		\input{tables/table-1.tex}
+		\caption{}
+		\label{table:table1}	
+	\end{table}
+	
+	Based on this data, find the probability that the student gets more than $70\%$ marks in a unit test. 
+	
+	% The answer
+	\textbf{Solution.}
+	Let a random variable $X \in \{0,1\}$ denote 	the possible outcomes of a unit test. Also, let $m$ denote the percentage of marks obtained in a unit test.
+	\begin{table}[ht!]
+		\centering
+		\input{tables/table-2.tex}
+		\caption{}
+		\label{table:table2}	
+	\end{table}
+	
+	The probability that the student gets more than $70\%$ marks in a unit test is given by:
+	\begin{align}
+	\pr{X = 1} &= \dfrac{n(X=1)}{n(X=0) + n(X=1)} \\
+	&= \dfrac{3}{2+3} \\
+	&= \dfrac{3}{5}
+	\end{align}
+	
+	$\therefore$ The probability that the student gets more than $70\%$ marks in a unit test is $0.6$
+	
+\end{document}
