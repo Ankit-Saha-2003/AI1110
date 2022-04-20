@@ -27,7 +27,7 @@ def theorProb(arr, cutoff):
 
 def empProb(trials, cutoff):
     """
-    Returns the empirical probability that the student gets more than "cutoff" after "trials" number of random trials
+    Returns the empirical probability that the student gets more than "cutoff" after "trials" number of random unit tests
     Note that this assumes that obtaining each percentage score is equally likely, which is very likely not the case
     """
     arr = np.random.randint(101, size=trials)
