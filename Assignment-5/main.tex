@@ -1,0 +1,75 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{Assignment 5 \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \normalsize  26 April 2022 \\ \vspace*{20pt} \Large CBSE Probability Grade 10}
+
+
+\begin{document}
+	% The title
+	\maketitle
+	
+	% The question
+	\textbf{Exercise 15.1.10} 
+	A piggy bank contains hundred $50$ p coins, fifty \rupee~$1$ coins, twenty \rupee~$2$ coins and ten \rupee~$5$ coins. If it is equally likely that one of the coins will fall out when the bank is turned upside down, what is the probability that the coin:
+	\begin{enumerate}[label=(\roman*)]
+	\item will be a $50$ p coin?
+	\item will not be a \rupee~$5$ coin?
+	\end{enumerate}	 
+	
+	% The answer
+	\textbf{Solution.}
+	Let a random variable $X \in \cbrak{0,1,2,3}$ denote the possible outcomes of obtaining a random coin from the piggy bank.
+	\begin{table}[ht!]
+		\centering
+		\input{tables/table-1.tex}
+		\caption{}
+		\label{table:table1}	
+	\end{table}
+	
+	\begin{enumerate}[label=(\roman*)]
+	\item The probability that the coin will be a $50$ p coin is given by:
+	\begin{align}
+	\pr{X=0} &= \frac{n(X=0)}{\sum_{i=0}^3 n(X=i)} = \frac{100}{180} \\
+	\therefore \pr{X=0} &= \frac{5}{9} \approx 0.556
+	\end{align}
+
+	\item The probability that the coin will not be a \rupee~$5$ coin is given by:
+	\begin{align}
+	\pr{X \ne 3} &= \frac{\sum_{i \ne 3} n(X=i)}{\sum_{i=0}^3 n(X=i)} = \frac{170}{180} \\
+	\therefore \pr{X \ne 3} &= \frac{17}{18} \approx 0.944
+	\end{align}	
+	\end{enumerate}
+	
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=\columnwidth]{figs/fig-1.png}
+		\caption{Plot of the probability mass function}
+		\label{fig1}
+	\end{figure}
+	
+\end{document}
