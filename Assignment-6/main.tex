@@ -1,0 +1,97 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{Assignment 6 \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \normalsize  29 April 2022 \\ \vspace*{20pt} \Large CBSE Probability Grade 11}
+
+
+\begin{document}
+	% The title
+	\maketitle
+	
+	% The question
+	\textbf{Example 9} 
+	Let a sample space be $S = \cbrak{\omega_1, \omega_2, \ldots, \omega_6}$. Which of the following assignments of probabilities to each outcome are valid? 
+	
+	% The answer
+	\textbf{Solution.}
+	Let a random variable $X \in \mathcal{X}$ where $\mathcal{X} = \cbrak{1,2,3,4,5,6}$ denote each of the six outcomes respectively.
+	
+	The necessary conditions for a given set of assignments of probabilities $\mathcal{P}$ to be valid are:
+	\begin{align}
+	0 \le \pr{X=i} &\le 1, ~\forall i \in \mathcal{X} \label{cond1} \\
+	\sum_{i \in \mathcal{X}} \pr{X=i} &= 1 \label{cond2}
+	\end{align}
+	
+	If either of these conditions fails, then the given assignment is invalid.
+	
+	\begin{enumerate}[label=(\alph*)]
+	\item 
+	\begin{align}
+		\mathcal{P} = \cbrak{\frac16, \frac16, \frac16, \frac16, \frac16, \frac16}
+	\end{align}
+	Valid: Both conditions hold
+
+	\item 
+	\begin{align}
+		\mathcal{P} = \cbrak{1, 0, 0, 0, 0, 0}
+	\end{align}
+	Valid: Both conditions hold
+	
+	\item 
+	\begin{align}
+		\mathcal{P} = \cbrak{\frac18, \frac23, \frac13, \frac13, -\frac14, -\frac13}
+	\end{align}
+	Invalid: Both conditions fail
+	\begin{align}
+		\pr{X=5} &< 0 \\
+		\pr{X=6} &< 0 \\
+		\sum_{i \in \mathcal{X}} \pr{X=i} &= \frac78
+	\end{align}
+	
+	\item 
+	\begin{align}
+		\mathcal{P} = \cbrak{\frac{1}{12}, \frac{1}{12}, \frac16, \frac16, \frac16, \frac32}
+	\end{align}
+	Invalid: Both conditions fail	
+	\begin{align}
+		\pr{X=6} &> 1 \\
+		\sum_{i \in \mathcal{X}} \pr{X=i} &= \frac{13}{6}
+	\end{align}
+	
+	\item 
+	\begin{align}
+		\mathcal{P} = \cbrak{0.1, 0.2, 0.3, 0.4, 0.5, 0.6}
+	\end{align}
+	Invalid: Condition \eqref{cond2} fails
+	\begin{align}
+		\sum_{i \in \mathcal{X}} \pr{X=i} = 2.1
+	\end{align}
+	
+	\end{enumerate}
+	
+\end{document}
