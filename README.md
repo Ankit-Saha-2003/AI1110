@@ -27,3 +27,7 @@ Instructor: Dr. G. V. V. Sharma (https://github.com/gadepall)
 - Assignment 5
   - 26 April 2022
   - [CBSE Probability Grade 10 Exercise 15.1.10](https://github.com/gadepall/ncert-textbooks/blob/main/math/10/jemh115.pdf)
+
+- Assignment 6
+  - 29 April 2022
+  - [CBSE Probability Grade 11 Example 9](https://github.com/gadepall/ncert-textbooks/blob/main/math/11/kemh116.pdf)
