@@ -1,0 +1,77 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{Assignment 7 \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \normalsize  1 May 2022 \\ \vspace*{20pt} \Large CBSE Probability Grade 11}
+
+
+\begin{document}
+	% The title
+	\maketitle
+	
+	% The question
+	\textbf{Exercise 16.3.10} 
+	A letter is chosen at random from the word 'ASSASSINATION'. Find the probability that the letter is:
+	\begin{enumerate}[label=(\roman*)]
+	\item a vowel
+	\item a consonant
+	\end{enumerate}	 
+	
+	% The answer
+	\textbf{Solution.}
+	Let a random variable $X \in \cbrak{0,1}$ denote whether the chosen letter is a vowel or a consonant respectively.
+	\begin{table}[ht!]
+		\centering
+		\input{tables/table-1.tex}
+		\caption{}
+		\label{table:table1}	
+	\end{table}
+	
+	\begin{enumerate}[label=(\roman*)]
+	\item The probability that the chosen letter is a vowel is given by:
+	\begin{align}
+		\pr{X=0} &= \frac{n(X=0)}{n(X=0)+n(X=1)} \\
+		&= \frac{6}{6+7} \\
+		&= \frac{6}{13} \approx 0.462
+	\end{align}
+	
+	\item The probability that the chosen letter is a consonant is given by:
+	\begin{align}
+		\pr{X=0} &= \frac{n(X=1)}{n(X=0)+n(X=1)} \\
+		&= \frac{7}{6+7} \\
+		&= \frac{7}{13} \approx 0.538
+	\end{align}	
+	\end{enumerate}
+	
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=\columnwidth]{figs/fig-1.png}
+		\caption{Plot of the probability mass function}
+		\label{fig1}
+	\end{figure}
+	
+\end{document}
