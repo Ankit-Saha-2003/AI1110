@@ -31,3 +31,7 @@ Instructor: Dr. G. V. V. Sharma (https://github.com/gadepall)
 - Assignment 6
   - 29 April 2022
   - [CBSE Probability Grade 11 Example 9](https://github.com/gadepall/ncert-textbooks/blob/main/math/11/kemh116.pdf)
+
+- Assignment 7
+  - 1 May 2022
+  - [CBSE Probability Grade 11 Exercise 16.3.10](https://github.com/gadepall/ncert-textbooks/blob/main/math/11/kemh116.pdf)
