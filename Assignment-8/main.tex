@@ -1,0 +1,114 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+%\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{Assignment 8 \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \Large CBSE Probability Grade 12}
+
+
+\begin{document}
+	% The title
+	\maketitle
+	
+	% The question
+	\textbf{Exercise 13.1.6} 
+	A coin is tossed three times. Determine $\pr{E|F}$ for the following three cases: 
+	\begin{enumerate}[label=(\roman*)]
+	\item
+	$E$: head on third toss
+	
+	$F$: heads on first two tosses
+	
+	\item
+	$E$: at least two heads
+	
+	$F$: at most two heads
+	
+	\item
+	$E$: at most two tails
+	
+	$F$: at least one tail
+	\end{enumerate}
+	
+	% The answer
+	\textbf{Solution.}
+	Let a Bernoulli random variable $X \in \cbrak{0,1}$ denote the possible outcomes of a coin toss.
+	\begin{table}[ht!]
+		\centering
+		\input{tables/table-1.tex}
+		\caption{Bernoulli distribution}
+		\label{table:table1}	
+	\end{table}
+	
+	Consider an experiment consisting of $3$ Bernoulli trials $X_1, X_2, X_3$ and denote the number of heads obtained by a binomial random variable $Y \in \cbrak{0,1,2,3}$. This can be expressed as a binomial distribution with probability mass function given by:
+	\begin{align}
+		p_Y(k) = \binom{n}{k} (1-p)^{n-k} p^k,~ 0 \le k \le n
+	\end{align}
+	where $n = 3$ and $p = \frac12$
+	\begin{table}[ht!]
+		\centering
+		\input{tables/table-2.tex}
+		\caption{Binomial distribution}
+		\label{table:table2}	
+	\end{table}
+	
+	\begin{enumerate}[label=(\roman*)]
+	\item Since the outcome of every coin toss is independent of the outcomes of all preceding coin tosses, $E$ and $F$ are independent events, i.e.,
+	\begin{align}
+		\pr{E|F} &= \pr{E} \\
+		&= \pr{X_3 = 1} \\
+		&= p \\
+		&= \frac12 = 0.5
+	\end{align}
+	
+	\item
+	\begin{align}
+		\pr{E|F} &= \pr{Y \ge 2 | Y \le 2} \\
+		&= \frac{\pr{Y \ge 2 , Y \le 2}}{\pr{Y \le 2}} \\
+		&= \frac{\pr{Y = 2}}{\sum_{i=0}^2 \pr{Y = i}} \\
+		&= \frac{\frac38}{\frac18 + \frac38 + \frac38} \\
+		&= \frac37 \approx 0.429
+	\end{align}
+	
+	\item
+	\begin{align}
+		\pr{E|F} &= \pr{Y \ge 1 | Y \le 2} \\
+		&= \frac{\pr{Y \ge 1 , Y \le 2}}{\pr{Y \le 2}} \\
+		&= \frac{\pr{1 \le Y \le 2}}{\pr{Y \le 2}} \\
+		&= \frac{\sum_{i=1}^2 \pr{Y = i}}{\sum_{i=0}^2 \pr{Y = i}} \\
+		&= \frac{\frac38 + \frac38}{\frac18 + \frac38 + \frac38} \\
+		&= \frac67 \approx 0.857
+	\end{align}
+	\end{enumerate}	
+	
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=\columnwidth]{figs/fig-1.png}
+		\caption{Plot of the probability mass function}
+		\label{fig1}
+	\end{figure}
+	
+\end{document}
