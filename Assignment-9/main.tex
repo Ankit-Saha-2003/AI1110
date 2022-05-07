@@ -1,0 +1,74 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{Assignment 9 \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \normalsize  7 May 2022 \\ \vspace*{20pt} \Large CBSE Probability Grade 12}
+
+
+\begin{document}
+	% The title
+	\maketitle
+	
+	% The question
+	\textbf{Example 10} 
+	A die is thrown. If $E$ is the event `the number appearing is a multiple of three' and $F$ be the event `the number appearing is even' then find whether $E$ and $F$ are independent.	 
+	
+	% The answer
+	\textbf{Solution.}
+	Let a random variable $X \in \mathcal{X}$ where $\mathcal{X} = \cbrak{1,2,3,4,5,6}$ denote the number appearing on the die.
+	\begin{table}[ht!]
+		\centering
+		\input{tables/table-1.tex}
+		\caption{}
+		\label{table:table1}	
+	\end{table}	
+	\begin{align}
+		\pr{X \in \cbrak{3,6}} &= \frac{n(X \in \cbrak{3,6})}{n(X \in \mathcal{X})} \\
+		&= \frac26 \\
+		&= \frac13 \\
+		\pr{X \in \cbrak{2,4,6}} &= \frac{n(X \in \cbrak{2,4,6})}{n(X \in \mathcal{X})} \\
+		&= \frac36 \\
+		&= \frac12 \\
+	\end{align}
+	\begin{multline}
+		\pr{X \in \cbrak{3,6}, X \in \cbrak{2,4,6}} \\
+		= \frac{n(X \in \cbrak{3,6}, X \in \cbrak{2,4,6})}{n(X \in \mathcal{X})} \\
+		= \frac{n(X = 6)}{n(X \in \mathcal{X})} = \frac16
+	\end{multline}
+	\begin{align}
+		\pr{X \in \cbrak{3,6}} \pr{X \in \cbrak{2,4,6}} &= \frac13 \times \frac12 \\
+		&= \frac16
+	\end{align}
+	Clearly, 
+	\begin{multline}
+		\pr{X \in \cbrak{3,6}, X \in \cbrak{2,4,6}} \\
+		= \pr{X \in \cbrak{3,6}} \pr{X \in \cbrak{2,4,6}}
+	\end{multline}
+	
+	Therefore, $E$ and $F$ are independent events.
+			
+\end{document}
