@@ -43,3 +43,7 @@ Instructor: Dr. G. V. V. Sharma (https://github.com/gadepall)
 - Assignment 9
   - 7 May 2022
   - [CBSE Probability Grade 12 Example 10](https://github.com/gadepall/ncert-textbooks/blob/main/math/12-2/lemh207.pdf)
+
+- Assignment 10
+  - 11 May 2022
+  - [CBSE Probability Grade 12 Exercise 13.3.4](https://github.com/gadepall/ncert-textbooks/blob/main/math/12-2/lemh207.pdf)
