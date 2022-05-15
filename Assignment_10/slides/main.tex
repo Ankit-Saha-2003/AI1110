@@ -1,0 +1,95 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\setbeamertemplate{caption}[numbered]{}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{AI1110 \\ Assignment 10}
+\author{Ankit Saha \\ AI21BTECH11004}
+\date{16 May 2022}
+
+
+\begin{document}
+	% The title page
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% The table of contents
+	\begin{frame}{Outline}
+    		\tableofcontents
+	\end{frame}
+	
+	% The question
+	\section{Question}
+	\begin{frame}{Exercise 13.3.4}
+	In answering a question on a multiple choice test, a student either knows the answer or guesses. Let $\frac34$ be the probability that he knows the answer and $\frac14$ be the probability that he guesses. Assuming that a student who guesses at the answer will be correct with a probability $\frac14$. What is the probability that the student knows the answer given that he answered it correctly?
+	\end{frame}
+	
+	% The solution
+	\section{Solution}
+	\begin{frame}{Solution}
+	Let random variables $X, Y \in \cbrak{0,1}$ denote the following events in Table \eqref{table:table1}
+	\begin{table}[ht!]
+		\centering
+		\input{../tables/table-1.tex}
+		\caption{Description of events}
+		\label{table:table1}	
+	\end{table}
+	\end{frame}
+		
+	\begin{frame}{Input probabilities}
+	The following are the input probabilities as given in the question:
+	\begin{table}[ht!]
+		\centering
+		\input{../tables/table-2.tex}
+		\caption{Input probabilities}
+		\label{table:table2}	
+	\end{table}
+	\end{frame}
+
+	\begin{frame}{Computation}
+	The desired probability is given by:
+	\begin{align}
+		&\pr{Y = 0|X = 1} \\ 
+		&= \frac{\pr{Y = 0,X = 1}}{\pr{X = 1}} \\
+		&= \frac{\pr{X = 1|Y = 0}\pr{Y = 0}}{\sum_{i=0}^1 \pr{X = 1,Y = i}} \\
+		&= \frac{\pr{X = 1|Y = 0}\pr{Y = 0}}{\sum_{i=0}^1 \pr{X = 1|Y = i}\pr{Y = i}}
+	\end{align}
+	\end{frame}
+	
+	\section{Answer}
+	\begin{frame}{Answer}
+	On substituting the values from Table \eqref{table:table2} we get:
+	\begin{align}
+		\pr{Y = 0|X = 1} &= \frac{1 \times \frac34}{1 \times \frac34 + \frac14 \times \frac14} \\
+		&= \frac{12}{13} \\
+		&\approx 0.923
+	\end{align}
+	\end{frame}
+	
+\end{document}
