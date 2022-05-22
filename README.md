@@ -51,3 +51,7 @@ Instructor: Dr. G. V. V. Sharma (https://github.com/gadepall)
 - Assignment 11
   - 18 May 2022
   - [CBSE Probability Grade 12 Exercise 13.5.13](https://github.com/gadepall/ncert-textbooks/blob/main/math/12-2/lemh207.pdf)
+
+- Assignment 12
+  - 22 May 2022
+  - [Papoulis Exercise 4-35](https://cdn-uploads.piazza.com/paste/kshhlkv2li3kr/2a8da73678f5feaacaccbf7685d574aac4eb4ce9d372fbbc909b715603eba382/Papoulis_Pillai_Probability_RandomVariables_and_Stochastic_Processes-4th_Edition_2002.pdf)
