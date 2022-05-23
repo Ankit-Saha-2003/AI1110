@@ -1,0 +1,206 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\setbeamertemplate{caption}[numbered]{}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}
+
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{AI1110 \\ Assignment 12}
+\author{Ankit Saha \\ AI21BTECH11004}
+\date{22 May 2022}
+
+
+\begin{document}
+	% The title page
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% The table of contents
+	\begin{frame}{Outline}
+    		\tableofcontents
+	\end{frame}
+	
+	% The question
+	\section{Question}
+	\begin{frame}{Papoulis Exercise 4-35}
+	\begin{block}{Poisson Theorem}
+		If $n \to \infty$ and $p \to 0$ such that $np \to \lambda$ then 
+		\begin{align}
+			\label{poisson}
+			\frac{n!}{k! (n-k)!} p^k q^{n-k} \xrightarrow[n \to \infty]{} e^{-\lambda} \frac{\lambda^k}{k!} \quad k = 0,1,2,\ldots
+		\end{align}
+	\end{block}
+	
+	Reasoning as in \eqref{poisson}, show that, if
+	\begin{align}
+		\label{given}
+		k_1 + k_2 + k_3 = n \qquad p_1 + p_2 + p_3 = 1 \qquad k_1 p_1 \ll 1 \qquad k_2 p_2 \ll 1
+	\end{align}
+	then
+	\begin{align}
+		\frac{n!}{k_1! k_2! k_3!} \simeq \frac{n^{k_1 + k_2}}{k_1! k_2!} \qquad p_3^{k_3} \simeq e^{-n(p_1 + p_2)}
+	\end{align}
+	\end{frame}
+	
+	% The proof
+	\section{Proof of the first part}
+	\begin{frame}{Proving the first part}
+	From \eqref{given}, we have $k_3 = n - k_1 - k_2$
+	
+	Thus,
+	\begin{align}
+		\frac{n!}{k_1! k_2! k_3!} &= \frac{n!}{k_1! k_2! (n - k_1 - k_2)!} \\
+		&= \frac{n(n-1) \cdots (n - k_1 - k_2 + 1)}{k_1! k_2!} \\
+		&= \frac{n(n-1) \cdots (n - k_1 - k_2 + 1)}{n^{k_1 + k_2}} \frac{n^{k_1 + k_2}}{k_1! k_2!} \\
+		&= \brak{1-\frac1n} \brak{1-\frac2n} \cdots \brak{1-\frac{k_1 + k_2 - 1}{n}} \frac{n^{k_1 + k_2}}{k_1! k_2!} \\
+		&= \brak{\prod_{m=0}^{k_1 + k_2 - 1} \brak{1 - \frac{m}{n}}} \frac{n^{k_1 + k_2}}{k_1! k_2!}
+	\end{align}
+	\end{frame}
+		
+	\begin{frame}
+	Now, if we assume that $k_1 + k_2$ is finite, i.e.,
+	\begin{align}
+		\label{assumption}
+		\text{as } n \to \infty, k_1 + k_2 \ll n
+	\end{align}
+	
+	Then the finite product
+	\begin{align}
+		\prod_{m=0}^{k_1 + k_2 - 1} \brak{1 - \frac{m}{n}} 
+	\end{align}
+	tends to unity as $n \to \infty$
+	
+	\begin{block}{}
+	Therefore,
+		\begin{align}
+			\frac{n!}{k_1! k_2! k_3!} \simeq \frac{n^{k_1 + k_2}}{k_1! k_2!} \qed
+		\end{align}
+	\end{block}
+	\end{frame}
+
+	\section{Proof of the second part}
+	\begin{frame}{Proving the second part}
+	From \eqref{given}, we have $p_3 = 1 - p_1 - p_2$
+	\begin{align}
+		p_3^{k_3} &= (1 - p_1 - p_2)^{k_3}
+	\end{align}
+	We have already assumed that $k_1 \ll n$ and $k_2 \ll n$ in \eqref{assumption}
+	
+	Assume $p_1 \ll 1$ and $p_2 \ll 1$ satisfying $k_1 p_1 \ll 1$,  $k_2 p_2 \ll 1$
+	\begin{align}
+		\therefore p_1 + p_2 &\ll 1
+	\end{align}
+	
+	By the definition of $e^x$,
+	\begin{align}
+		e^x &= \lim_{n \to \infty} \brak{1 + \frac{x}{n}}^n \\
+		&= \lim_{n \to \infty} \sum_{k=0}^n \frac{n!}{k! (n-k)!} \brak{\frac{x}{n}}^k \\
+		&= \lim_{n \to \infty} \sum_{k=0}^n \frac{n (n-1) \cdots (n-k+1)}{n^k} \brak{\frac{x^k}{k!}}  \\
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}
+	\begin{align}
+		e^x &= \sum_{k=0}^{\infty} \brak{\brak{\frac{x^k}{k!}} \lim_{n \to \infty} \brak{1-\frac1n} \brak{1-\frac2n} \cdots \brak{1 - \frac{k-1}{n}}} \\
+		&= \sum_{k=0}^{\infty} \frac{x^k}{k!} \\
+		&= 1 + x + \frac{x^2}{2!} + \cdots \\
+		\implies e^{-x} &= 1 - x + \frac{x^2}{2!} + \cdots
+	\end{align}
+	
+	For $x \ll 1$, the higher-order terms can be neglected
+	\begin{align}
+		e^{-x} &\simeq 1 - x \\
+		\implies 1 - p_1 - p_2 &\simeq e^{-(p_1 + p_2)} \\
+		\implies (1 - p_1 - p_2)^{k_3} &\simeq e^{-k_3(p_1 + p_2)}
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}
+	\begin{align}
+		\therefore p_3^{k_3} \simeq e^{-k_3(p_1 + p_2)}
+	\end{align}
+	Also, $k_1 + k_2 \ll n \implies k_3 \simeq n$ since $k_1 + k_2 + k_3 = n$
+	
+	\begin{block}{}
+	Therefore,
+		\begin{align}
+			p_3^{k_3} \simeq e^{-n(p_1 + p_2)} \qed
+		\end{align}
+	\end{block}
+	\end{frame}
+	
+	% The follow-up
+	\section{Follow-up}
+	\begin{frame}{Follow-up}
+	\begin{block}{Random Poisson points in non-overlapping intervals}
+	Use these results to justify, for non-overlapping intervals $t_a$ and $t_b$,
+		\begin{align}
+			\pr{k_a~\mathrm{in}~t_a, k_b~\mathrm{in}~t_b} = e^{-\lambda t_a} \frac{(\lambda t_a)^{k_a}}{k_a!} e^{-\lambda t_b} \frac{(\lambda t_b)^{k_b}}{k_b!}
+		\end{align}
+		where $\pr{k~\mathrm{in}~t}$ denotes the probability that $k$ of $n$ randomly placed points in the interval $\brak{-\frac{T}{2}, \frac{T}{2}}$ will lie in an interval of length $t$ and $\lambda = \frac{n}{T}$ is constant
+	\end{block}
+	\end{frame}
+	
+	% The justification to the follow-up
+	\section{Justification}
+	\begin{frame}{Justification}
+	Let $k_1 = k_a$, $k_2 = k_b$ and $k_3 = n - k_a - k_b$ denote the number of points lying in $t_a$, $t_b$ and outside both $t_a$ and $t_b$ respectively out of a total of $n$ randomly placed points in $\brak{-\frac{T}{2}, \frac{T}{2}}$
+	\begin{align}
+		k_1 + k_2 + k_3 = n
+	\end{align}
+	
+	Let $p_1$, $p_2$ and $p_3$ denote the probabilities that an arbitrary point lies in $t_a$, $t_b$ and outside both $t_a$ and $t_b$ respectively
+	\begin{align}
+		p_1 + p_2 + p_3 = 1
+	\end{align}
+	
+	Assuming small intervals, i.e., $t_a, t_b \ll T$
+	\begin{align}
+		k_1 p_1 \ll 1 \qquad k_2 p_2 \ll 1
+	\end{align}
+	\end{frame}		
+	
+	\begin{frame}
+	The conditions have thus been met and we can now use the previously proven results
+	\begin{align}
+		\pr{k_a~\mathrm{in}~t_a, k_b~\mathrm{in}~t_b} &= \frac{n!}{k_a! k_b! (n-k_a-k_b)!} p_1^{k_a} p_2^{k_b} p_3^{n - k_a - k_b} \\
+		&= \frac{n!}{k_1! k_2! k_3!} p_1^{k_1} p_2^{k_2} p_3^{k_3} \\
+		&\simeq \frac{n^{k_1 + k_2}}{k_1! k_2!} p_1^{k_1} p_2^{k_2} e^{-n(p_1 + p_2)} \\
+		&= e^{-np_1} \frac{(np_1)^{k_1}}{k_1!} e^{-np_2} \frac{(np_2)^{k_2}}{k_2!}
+	\end{align}
+	
+	Now, $p_1 = \frac{t_a}{T} \implies np_1 = \frac{n}{T} t_a = \lambda t_a$
+	
+	Similarly, $np_2 = \lambda t_b$
+	
+	Substituting back, we get the desired result. $\qed$
+	\end{frame}
+	
+\end{document}
