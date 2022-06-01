@@ -1,0 +1,81 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\setbeamertemplate{caption}[numbered]{}
+
+\usepackage{enumitem}
+\usepackage{tfrupee}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}  
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{AI1110 \\ Assignment 14}
+\author{Ankit Saha \\ AI21BTECH11004}
+\date{1 June 2022}
+
+
+\begin{document}
+	% The title page
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% The table of contents
+	\begin{frame}{Outline}
+    		\tableofcontents
+	\end{frame}
+	
+	% The question
+	\section{Question}
+	\begin{frame}{Papoulis Exercise 6-74}
+	We have a pile of $m$ coins. The probability of heads of the $i^{\mathrm{th}}$ coin equals $p_i$. We select at random one of the coins, we toss it $n$ times and heads shows $k$ times. Show that the probability that we selected the $r^{\mathrm{th}}$ coin equals
+	\begin{align}
+		\frac{p_r^k (1-p_r)^{n-k}}{p_1^k (1-p_1)^{n-k} + \cdots + p_m^k (1-p_m)^{n-k}}
+	\end{align}
+	\end{frame}
+	
+	% The proof
+	\section{Proof}
+	\begin{frame}{Proof}
+		Let a random variable $X \in \cbrak{1, 2, \ldots, m}$ denote the coin that has been picked. 
+		
+		Let binomial random variables $Y_i \in \cbrak{0,1,\ldots,n}, i \in \cbrak{1, 2, \ldots, m}$ denote the number of heads obtained from $n$ tosses of the $i^{\mathrm{th}}$ coin. The probability distribution of each of these random variables is given by
+		\begin{align}
+			\pr{Y_i = k} = \binom{n}{k} p_i^k (1-p_i)^{n-k}
+		\end{align}
+		
+		Let $Y$ denote the number of heads obtained from $n$ tosses of any coin.
+	\end{frame}
+		
+	\begin{frame}
+	The desired probability is given by
+	\begin{align}
+		&\pr{X = r | Y = k} \\
+		&= \frac{\pr{X=r,Y=k}}{\pr{Y=k}} \\
+		&= \frac{\pr{X=r,Y=k}}{\sum_{i=1}^m \pr{X=i,Y=k}} \\
+		&= \frac{\pr{Y_r=k}}{\sum_{i=1}^m \pr{Y_i=k}} \\
+		&= \frac{\binom{n}{k} p_r^k (1-p_r)^{n-k}}{\sum_{i=1}^m \binom{n}{k} p_i^k (1-p_i)^{n-k}} \\
+		&= \frac{p_r^k (1-p_r)^{n-k}}{\sum_{i=1}^m p_i^k (1-p_i)^{n-k}}
+	\end{align}
+	\end{frame}
+	
+\end{document}
