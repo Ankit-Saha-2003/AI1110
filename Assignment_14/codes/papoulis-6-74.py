@@ -1,4 +1,4 @@
-# Papoulis Exercise 6-42
+# Papoulis Exercise 6-74
 
 # Name: Ankit Saha
 # Roll number: AI21BTECH11004
