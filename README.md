@@ -59,3 +59,7 @@ Instructor: Dr. G. V. V. Sharma (https://github.com/gadepall)
 - Assignment 13
   - 26 May 2022
   - [Papoulis Exercise 5-51](https://cdn-uploads.piazza.com/paste/kshhlkv2li3kr/2a8da73678f5feaacaccbf7685d574aac4eb4ce9d372fbbc909b715603eba382/Papoulis_Pillai_Probability_RandomVariables_and_Stochastic_Processes-4th_Edition_2002.pdf)
+
+- Assignment 14
+  - 1 June 2022
+  - [Papoulis Exercise 6-74](https://cdn-uploads.piazza.com/paste/kshhlkv2li3kr/2a8da73678f5feaacaccbf7685d574aac4eb4ce9d372fbbc909b715603eba382/Papoulis_Pillai_Probability_RandomVariables_and_Stochastic_Processes-4th_Edition_2002.pdf)
