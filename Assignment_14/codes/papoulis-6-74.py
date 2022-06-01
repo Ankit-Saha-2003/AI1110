@@ -4,10 +4,10 @@
 # Roll number: AI21BTECH11004
 
 """ Problem Statement
-We have a pile of m coins.
-The probability of heads of the i'th coin equals p_i.
-We select at random one of the coins, we toss it n times and heads shows k times.
-Find the probability that we selected the rth coin.
+We have a pile of m coins
+The probability of heads of the i'th coin equals p_i
+We select at random one of the coins, we toss it n times and heads shows k times
+Find the probability that we selected the rth coin
 """
 
 from scipy.stats import binom
