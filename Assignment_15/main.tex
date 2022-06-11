@@ -1,0 +1,172 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\setbeamertemplate{caption}[numbered]{}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                        
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{caption} 
+\captionsetup[table]{skip=3pt}
+
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\let\vec\mathbf
+
+\renewcommand{\thefigure}{\arabic{table}}
+\renewcommand{\thetable}{\arabic{table}}                                     
+                               
+\title{AI1110 \\ Assignment 15}
+\author{Ankit Saha \\ AI21BTECH11004}
+\date{11 June 2022}
+
+
+\begin{document}
+	% The title page
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% The table of contents
+	\begin{frame}{Outline}
+    		\tableofcontents
+	\end{frame}
+	
+	% The question
+	\section{Question}
+	\begin{frame}{Papoulis Exercise 9-21}
+	Show that if $X(t)$ is a stationary process with derivative $X'(t)$, then for a given $t$ the random variables $X(t)$ and $X'(t)$ are orthogonal and uncorrelated.
+	\end{frame}
+	
+	% The proof
+	\section{Proof}
+	\begin{frame}{Proof}
+	We know that the mean of a stationary process is constant, i.e.,
+	\begin{align}
+		\mean{X(t)} = \eta_{x}(t) = \eta
+	\end{align}
+	
+	The mean of $X'(t)$ is thus given by
+	\begin{align}
+		\mean{X'(t)} &= \eta_{x'}(t) \\
+		&= L[\eta_{x}(t)] \\
+		&= \eta_{x}'(t) \\
+		&= 0
+	\end{align}
+	
+	where $L$ is the differentiator
+	\begin{align}
+		L[X(t)] = X'(t)
+	\end{align}
+	
+	Since the mean of $X'(t)$ is constant, $X'(t)$ is also a stationary process
+	\end{frame}
+	
+	\begin{frame}
+	The autocorrelation of a wide sense stationary process $X(t)$ depends only on $\tau = t_1 - t_2$
+	\begin{align}
+		R_{xx}(t_1, t_2) &= \mean{X(t_1) X(t_2)} \\
+		&= \mean{X(t_2+\tau) X(t_2)}
+	\end{align}
+	This is independent of $t_2$, i.e.,
+	\begin{align}
+		\implies R_{xx}(t+\tau,t) = \mean{X(t+\tau) X(t)} = R_{xx}(\tau) \qquad \forall t \label{autocorr}
+	\end{align}	
+	Now, 
+	\begin{align}
+		R_{xx}(-\tau) &= \mean{X(t-\tau) X(t)} \\
+		&= \mean{X(t) X(t-\tau)} \\
+		&= \mean{X((t-\tau)+\tau) X(t-\tau)} \\
+		&= \mean{X(t'+\tau) X(t')} && \text{where } t' = t - \tau \\
+		&= R_{xx}(\tau) && \text{from } \ref{autocorr}
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}
+	Similarly for jointly wide sense stationary processes $X(t)$ and $X'(t)$, 
+	\begin{align}
+		R_{xx'}(t+\tau,t) &= \mean{X(t+\tau)X'(t)} \\
+		&= R_{xx'}(\tau) \qquad \forall t
+	\end{align}
+	For a given $t$, $X(t)$ and $X'(t)$ are orthogonal if 
+	\begin{align}
+		R_{xx'}(t,t) &= 0 \\
+		\implies R_{xx'}(t+0,t) &= 0 \\
+		\implies R_{xx'}(0) &= 0 && \because \tau = t - t = 0 
+	\end{align}
+	Now, for any linear system $Y(t) = L[X(t)]$,
+	\begin{align}
+		R_{xy}(t_1, t_2) = L_2[R_{xx}(t_1, t_2)]
+	\end{align}
+	Since, differentiators are also linear systems, we have
+	\begin{align}
+		R_{xx'}(t_1, t_2) = L_2[R_{xx}(t_1, t_2)] 
+	\end{align}
+	For $\tau = t_1 - t_2$
+	\begin{align}
+		R_{xx'}(\tau) &= L[R_{xx}(\tau)] = R_{xx}'(\tau)
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}
+	Thus, $R_{xx'}(0) = R_{xx}'(0)$
+	
+	We have already obtained that
+	\begin{align}
+		R_{xx}(\tau) = R_{xx}(-\tau) \qquad \forall \tau
+	\end{align}
+	On differentiating with respect to $\tau$, we get
+	\begin{align}
+		R_{xx}'(\tau) &= -R_{xx}'(-\tau) \\
+		\implies R_{xx}'(\tau) + R_{xx}'(-\tau) &= 0
+	\end{align}
+	Substituting $\tau = 0$, we get
+	\begin{align}
+		R_{xx}'(0) &= 0 \\
+		\implies R_{xx'}(0) &= 0
+	\end{align}
+	
+	\begin{alertblock}{Therefore,}
+		$X(t)$ and $X'(t)$ are orthogonal
+	\end{alertblock}
+	\end{frame}
+
+	\begin{frame}
+	Now, the cross-covariance of jointly wide sense stationary processes $X(t)$ and $X'(t)$ only depends on $\tau = t_1-t_2$ and is given by
+	\begin{align}
+		C_{xx'}(t_1, t_2) &= R_{xx'}(t_1, t_2) - \eta_{x}(t_1) \eta_{x'}(t_2) \\
+		\implies C_{xx'}(\tau) &= R_{xx'}(\tau) - \eta_{x} \eta_{x'}  
+	\end{align}
+	For a given $t$, $t_1 = t_2 = t$ and $\tau = t_1 - t_2 = 0$
+	\begin{align}
+		C_{xx'}(0) &= R_{xx'}(0) - \eta \cdot 0 \\
+		&= 0 - 0 \\
+		&= 0
+	\end{align}
+	
+	\begin{alertblock}{Therefore,}
+		$X(t)$ and $X'(t)$ are uncorrelated
+	\end{alertblock}
+	\end{frame}
+	
+\end{document}
