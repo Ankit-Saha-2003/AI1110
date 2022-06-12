@@ -17,7 +17,7 @@ x = np.linspace(-3, 3, 1000)
 X = norm.pdf(x) * math.sin(t)
 dX = norm.pdf(x) * math.cos(t)    # d(sin(t))/dt = cos(t)
 
-print(f't = {t}')
+print(f"t = {t}")
 print(f"E[X(t)] = {sum(X*x)}")
 print(f"E[X'(t)] = {sum(dX*x)}")
 print(f"R_xx'(t,t) = E[X(t)X'(t)] = {sum(X*dX*x)} => Orthogonal")
