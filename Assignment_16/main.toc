@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{Question}{3}{0}{1}
+\beamer@sectionintoc {2}{Proof}{4}{0}{2}
+\beamer@sectionintoc {3}{Practical Applications}{13}{0}{3}
