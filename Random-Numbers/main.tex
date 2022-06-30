@@ -1,0 +1,190 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}         
+\usepackage{listings}
+\usepackage{lstautogobble}
+
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\var}[1]{\mathrm{Var}\left[ #1 \right]}
+
+\let\StandardTheFigure\thefigure
+\numberwithin{equation}{section}
+\renewcommand{\thefigure}{\theenumi}
+
+\lstset {
+	frame=single, 
+	breaklines=true,
+	columns=fullflexible,
+	autogobble=true
+}             
+                               
+\title{Random Numbers \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \normalsize  30 Jun 2022}
+
+
+\begin{document}
+
+	\maketitle
+	
+	\section{Uniform Random Numbers}
+	Let $U$ be a uniform random variable between 0 and 1.
+	\begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
+	\item Generate $10^6$ samples of $U$ using a C program and save into a file called uni.dat
+
+		\solution Download the C source code by executing the following command
+		\begin{lstlisting}
+			wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/1.1.c
+		\end{lstlisting}
+		Complie and run the C program by executing the following
+		\begin{lstlisting}
+			cc -lm 1.1.c
+			./a.out
+		\end{lstlisting}
+	
+	\item Load the uni.dat file into python and plot the empirical CDF of $U$ using the samples in uni.dat. The CDF is defined as
+	\begin{align}
+		F_{U}(x) = \pr{U \le x}
+	\end{align}
+
+	\solution  Download the following Python code that plots Fig. \ref{fig-1.2}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/1.2.py
+	\end{lstlisting}
+	Run the code by executing
+	\begin{lstlisting}
+		python 1.2.py
+	\end{lstlisting}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/1.2.png}
+		\caption{The CDF of $U$}
+		\label{fig-1.2}
+	\end{figure}
+	
+	\item Find a  theoretical expression for $F_{U}(x)$
+	
+	\solution The PDF of $U$ is given by
+	\begin{align}
+		P_{U}(x) = 
+		\begin{cases}
+			1 & x \in [0, 1] \\
+			0 & \text{otherwise}
+		\end{cases}
+	\end{align}
+	
+	The CDF of $U$ is given by
+	\begin{align}
+		F_{U}(x) = \pr{U \le x} = \int_{-\infty}^x P_{U}(x) ~\mathrm{d}x
+	\end{align}
+	
+	If $x<0$,
+	\begin{align}
+		\int_{-\infty}^x P_{U}(x) ~\mathrm{d}x = \int_{-\infty}^x 0 ~\mathrm{d}x = 0
+	\end{align}
+	
+	If $c$,
+	\begin{align}
+		\int_{-\infty}^x P_{U}(x) ~\mathrm{d}x &= \int_{-\infty}^0 0 ~\mathrm{d}x + \int_0^x 1 ~\mathrm{d}x \\
+		&= 0 + x \\
+		&= x
+	\end{align}
+	
+	If $x>1$,
+	\begin{multline}
+		\int_{-\infty}^x P_{U}(x) ~\mathrm{d}x \\= \int_{-\infty}^0 0 ~\mathrm{d}x + \int_0^1 1 ~\mathrm{d}x +  \int_1^x 0 ~\mathrm{d}x 
+	\end{multline}
+	\begin{align}
+		\int_{-\infty}^x P_{U}(x) ~\mathrm{d}x &= 0 + 1 + 0 \\
+		&= 1
+	\end{align}
+	
+	Therefore, we obtain the CDF of $U$ as
+	\begin{align}
+		F_{U}(x) = 
+		\begin{cases}
+			0 & x < 0 \\
+			x & 0 \le x \le 1 \\
+			1 & x > 1
+		\end{cases}
+	\end{align}
+	
+	\item The mean of $U$ is defined as
+	\begin{align}
+		\mean{U} = \frac{1}{N}\sum_{i=1}^{N}U_i
+	\end{align}
+	and its variance as
+	\begin{align}
+		\var{U} = \mean{U- \mean{U}}^2 
+	\end{align}
+	Write a C program to  find the mean and variance of $U$
+	
+	\solution Download the C source code by executing the following command
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/1.4.c
+	\end{lstlisting}
+	Complie and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 1.4.c
+		./a.out
+	\end{lstlisting}
+	The output of the code is
+	\begin{align}
+		\mu_{\text{emp}} &= 0.500007 \\
+		\mu_{\text{the}} &= 0.500000 \\
+		\sigma_{\text{emp}}^2 &= 0.083301 \\
+		\sigma_{\text{the}}^2 &= 0.083333
+	\end{align}
+	
+	\item Verify your result theoretically given that
+	\begin{align}
+		\mean{U^k} = \int_{-\infty}^{\infty}x^k \mathrm{d}F_{U}(x)
+	\end{align}
+		
+	\solution The mean of $U$ is given by
+	\begin{align}
+		\mean{U} = \int_{-\infty}^{\infty}x ~\mathrm{d}F_{U}(x) 
+	\end{align}
+	On differentiating the CDF of $U$, we get
+	\begin{align}
+		\mathrm{d}F_{U}(x) = 
+		\begin{cases}
+			0 & x < 0 \\
+			\mathrm{d}x & 0 \le x \le 1 \\
+			0 & x > 1
+		\end{cases}
+	\end{align}
+	\begin{align}
+		\therefore \mean{U} = \int_{0}^{1}x ~\mathrm{d}x = \frac12 = 0.5
+	\end{align}
+	
+	Similarly,
+	\begin{align}
+		\therefore \mean{U^2} = \int_{0}^{1}x^2 ~\mathrm{d}x = \frac13
+	\end{align}
+	Now, the variance of $U$ is given by
+	\begin{align}
+		&\var{U} \\
+		&= \mean{U- \mean{U}}^2 \\
+		&= \mean{U^2 - 2U\mean{U} + (\mean{U})^2}
+	\end{align}
+	By linearity of expectation, we have
+	\begin{align}
+		&\mean{U^2} + \mean{-2U\mean{U}} + \mean{(\mean{U})^2} \\
+		&= \mean{U^2} -2\mean{U}\mean{U} + (\mean{U})^2 \\
+		&= \mean{U^2} - (\mean{U})^2 \\
+		&= \frac13 - \brak{\frac12}^2 \\
+		&= \frac{1}{12} \approx 0.083333
+	\end{align}
+	
+	\end{enumerate}
+	
+\end{document}
