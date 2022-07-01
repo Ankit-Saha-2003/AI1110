@@ -7,13 +7,15 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define NUM 1000000
+
 int main() {
 	FILE *fp = fopen("uni.dat", "w");
 	if (!fp) {
 		printf("Couldn't open file\n");
 		return 1;
 	}
-	int NUM = 1000000;
+
 	for (int i = 0; i < NUM; i++) {
 		fprintf(fp, "%lf\n", (double)rand()/RAND_MAX);
 	}
