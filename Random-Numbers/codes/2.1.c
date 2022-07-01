@@ -7,13 +7,15 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define NUM 1000000
+
 int main() {
 	FILE *fp = fopen("gau.dat", "w");
 	if (!fp) {
 		printf("Couldn't open file\n");
 		return 1;
 	}
-	int NUM = 1000000;
+
 	for (int i = 0; i < NUM; i++) {
 		double sum = -6.0;
 		for (int j = 0; j < 12; j++) {
