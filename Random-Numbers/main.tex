@@ -1,0 +1,816 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{txfonts}         
+\usepackage{listings}
+\usepackage{lstautogobble}
+\usepackage{mathtools}
+
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\sbrak}[1]{\ensuremath{\left[#1\right]}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\var}[1]{\mathrm{Var}\left[ #1 \right]}
+\providecommand{\der}[1]{\mathrm{d} #1}
+
+\let\StandardTheFigure\thefigure
+\numberwithin{equation}{section}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand\thesection{\arabic{section}}
+
+\lstset {
+	frame=single, 
+	breaklines=true,
+	columns=fullflexible,
+	autogobble=true
+}             
+                               
+\title{Random Numbers \\ \Large AI1110: Probability and Random Variables \\ \large Indian Institute of Technology Hyderabad}
+\author{Ankit Saha \\ \normalsize AI21BTECH11004 \\ \vspace*{20pt} \normalsize  30 Jun 2022}
+
+
+\begin{document}
+
+	\maketitle
+	
+	\section{Uniform Random Numbers}
+	Let $U$ be a uniform random variable between 0 and 1.
+	\begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
+	\item Generate $10^6$ samples of $U$ using a C program and save into a file called uni.dat
+
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/1.1.c
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/header.h
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 1.1.c
+		./a.out
+	\end{lstlisting}
+	
+	\item Load the uni.dat file into Python and plot the empirical CDF of $U$ using the samples in uni.dat. The CDF is defined as
+	\begin{align}
+		F_{U}(x) = \pr{U \le x}
+	\end{align}
+
+	\solution  Download the following Python code that plots Fig. \ref{fig-1.2}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/1.2.py
+	\end{lstlisting}
+	Run the code by executing
+	\begin{lstlisting}
+		python 1.2.py
+	\end{lstlisting}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/1.2.png}
+		\caption{The CDF of $U$}
+		\label{fig-1.2}
+	\end{figure}
+	
+	\item Find a  theoretical expression for $F_{U}(x)$
+	
+	\solution The PDF of $U$ is given by
+	\begin{align}
+		p_{U}(x) = 
+		\begin{cases}
+			1 & x \in [0, 1] \\
+			0 & \text{otherwise}
+		\end{cases}
+	\end{align}
+	
+	The CDF of $U$ is given by
+	\begin{align}
+		F_{U}(x) = \pr{U \le x} = \int_{-\infty}^x p_{U}(x) ~\mathrm{d}x
+	\end{align}
+	
+	If $x<0$,
+	\begin{align}
+		\int_{-\infty}^x p_{U}(x) ~\mathrm{d}x = \int_{-\infty}^x 0 ~\mathrm{d}x = 0
+	\end{align}
+	
+	If $c$,
+	\begin{align}
+		\int_{-\infty}^x p_{U}(x) ~\mathrm{d}x &= \int_{-\infty}^0 0 ~\mathrm{d}x + \int_0^x 1 ~\mathrm{d}x \\
+		&= 0 + x \\
+		&= x
+	\end{align}
+	
+	If $x>1$,
+	\begin{multline}
+		\int_{-\infty}^x p_{U}(x) ~\mathrm{d}x \\= \int_{-\infty}^0 0 ~\mathrm{d}x + \int_0^1 1 ~\mathrm{d}x +  \int_1^x 0 ~\mathrm{d}x 
+	\end{multline}
+	\begin{align}
+		\int_{-\infty}^x p_{U}(x) ~\mathrm{d}x &= 0 + 1 + 0 \\
+		&= 1
+	\end{align}
+	
+	Therefore, we obtain the CDF of $U$ as
+	\begin{align}
+		F_{U}(x) = 
+		\begin{cases}
+			0 & x < 0 \\
+			x & 0 \le x \le 1 \\
+			1 & x > 1
+		\end{cases}
+	\end{align}
+	
+	\item The mean of $U$ is defined as
+	\begin{align}
+		\mean{U} = \frac{1}{N}\sum_{i=1}^{N}U_i
+	\end{align}
+	and its variance as
+	\begin{align}
+		\var{U} = \mean{U- \mean{U}}^2 
+	\end{align}
+	Write a C program to  find the mean and variance of $U$
+	
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/1.4.c
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/header.h
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 1.4.c
+		./a.out
+	\end{lstlisting}
+	The output of the code is
+	\begin{align}
+		\mu_{\text{emp}} &= 0.500007 \\
+		\mu_{\text{the}} &= 0.500000 \\
+		\sigma_{\text{emp}}^2 &= 0.083301 \\
+		\sigma_{\text{the}}^2 &= 0.083333
+	\end{align}
+	
+	\item Verify your result theoretically given that
+	\begin{align}
+		\mean{U^k} = \int_{-\infty}^{\infty}x^k \mathrm{d}F_{U}(x)
+	\end{align}
+		
+	\solution The mean of $U$ is given by
+	\begin{align}
+		\mean{U} = \int_{-\infty}^{\infty}x ~\mathrm{d}F_{U}(x) 
+	\end{align}
+	On differentiating the CDF of $U$, we get
+	\begin{align}
+		\mathrm{d}F_{U}(x) = 
+		\begin{cases}
+			0 & x < 0 \\
+			\mathrm{d}x & 0 \le x \le 1 \\
+			0 & x > 1
+		\end{cases}
+	\end{align}
+	\begin{align}
+		\therefore \mean{U} = \int_{0}^{1}x ~\mathrm{d}x = \frac12 = 0.5
+	\end{align}
+	
+	Similarly,
+	\begin{align}
+		\therefore \mean{U^2} = \int_{0}^{1}x^2 ~\mathrm{d}x = \frac13
+	\end{align}
+	Now, the variance of $U$ is given by
+	\begin{align}
+		&\var{U} \\
+		&= \mean{U- \mean{U}}^2 \\
+		&= \mean{U^2 - 2U\mean{U} + (\mean{U})^2}
+	\end{align}
+	By linearity of expectation, we have
+	\begin{align}
+		&\mean{U^2} + \mean{-2U\mean{U}} + \mean{(\mean{U})^2} \\
+		&= \mean{U^2} -2\mean{U}\mean{U} + (\mean{U})^2 \\
+		&= \mean{U^2} - (\mean{U})^2 \\
+		&= \frac13 - \brak{\frac12}^2 \\
+		&= \frac{1}{12} \approx 0.083333
+	\end{align}
+	
+	\end{enumerate}
+	
+	\section{Central Limit Theorem}
+
+	\begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
+	\item Generate $10^6$ samples of the random variable
+	\begin{align}
+		X = \sum_{i=1}^{12}U_i -6
+	\end{align}
+
+	using a C program, where $U_i, i = 1,2,\dots, 12$ are  a set of independent uniform random variables between 0 and 1 and save in a file called gau.dat
+	
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/2.1.c
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/header.h
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 2.1.c
+		./a.out
+	\end{lstlisting}
+		
+	\item Load gau.dat in Python and plot the empirical CDF of $X$ using the samples in gau.dat. What properties does a CDF have?
+
+	\solution Download the following Python code that plots Fig. \ref{fig-2.2}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/2.2.py
+	\end{lstlisting}
+	Run the code by executing
+	\begin{lstlisting}
+		python 2.2.py
+	\end{lstlisting}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/2.2.png}
+		\caption{The CDF of $X$}
+		\label{fig-2.2}
+	\end{figure}
+	
+	Every CDF is monotone increasing and right-continuous. Furthermore,
+	\begin{align}
+		\lim_{x \to -\infty} F_{X}(x) = 0 \qquad \lim_{x \to \infty} F_{X}(x) = 1
+	\end{align}
+	Thus, every CDF is bounded between $0$ and $1$ and hence, convergent.
+	
+	In this case, the CDF is also left-continuous. Therefore, $X$ is a continuous random variable.
+	
+	\item Load gau.dat in Python and plot the empirical PDF of $X$ using the samples in gau.dat. The PDF of $X$ is defined as
+	\begin{align}
+		p_{X}(x) = \frac{\der{}}{\der{x}}F_{X}(x)
+	\end{align}
+	What properties does the PDF have?
+	
+	\solution Download the following Python code that plots Fig. \ref{fig-2.2}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/2.3.py
+	\end{lstlisting}
+	Run the code by executing
+	\begin{lstlisting}
+		python 2.3.py
+	\end{lstlisting}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/2.3.png}
+		\caption{The PDF of $X$}
+		\label{fig-2.3}
+	\end{figure}
+	
+	Every PDF is bounded between $0$ and $1$ and
+	\begin{align}
+		\int_{-\infty}^{\infty} p_{X}(x) ~\mathrm{d}x = 1
+	\end{align}
+	
+	In this case, the PDF is symmetric about $x = 0$
+	
+	\item Find the mean and variance of $X$ by writing a C program
+	
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/2.4.c
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/header.h
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 2.4.c
+		./a.out
+	\end{lstlisting}
+	The output of the code is
+	\begin{align}
+		\mu_{\text{emp}} &= 0.000294 \\
+		\mu_{\text{the}} &= 0.000000 \\
+		\sigma_{\text{emp}}^2 &= 0.999560 \\
+		\sigma_{\text{the}}^2 &= 1.000000
+	\end{align}	
+	
+	\item Given that 
+	\begin{align}
+		p_{X}(x) = \frac{1}{\sqrt{2\pi}}\exp\brak{-\frac{x^2}{2}}, -\infty < x < \infty,
+	\end{align}
+	repeat the above exercise theoretically
+	
+	\solution The mean of $X$ is given by
+	\begin{align}
+		\mean{X} &= \int_{-\infty}^{\infty} x p_{X}(x) \mathrm{d}x \\
+		&= \int_{-\infty}^{\infty} \frac{x}{\sqrt{2\pi}}\exp\brak{-\frac{x^2}{2}} \mathrm{d}x 
+	\end{align}
+	Now, let
+	\begin{align} 
+		g(x) &= \dfrac{x}{\sqrt{2\pi}}\exp\brak{-\frac{x^2}{2}} \\
+		\implies g(-x) &= \dfrac{-x}{\sqrt{2\pi}}\exp\brak{-\frac{(-x)^2}{2}} \\
+		&= - \dfrac{x}{\sqrt{2\pi}}\exp\brak{-\frac{x^2}{2}} \\
+		&= - g(x)
+	\end{align}
+	Thus, $g(x)$ is an odd function 
+	\begin{align}
+		\therefore \mean{X} &= \int_{-\infty}^{\infty} g(x) \mathrm{d}x = 0
+	\end{align}
+	
+	Now, 
+	\begin{align}
+		\mean{X^2} &= \int_{-\infty}^{\infty} x^2 p_{X}(x) \mathrm{d}x \\
+		&= \int_{-\infty}^{\infty} \frac{x^2}{\sqrt{2\pi}}\exp\brak{-\frac{x^2}{2}} \mathrm{d}x \\
+		&= 2 \int_{0}^{\infty} \frac{x^2}{\sqrt{2\pi}}\exp\brak{-\frac{x^2}{2}} \mathrm{d}x
+	\end{align}
+	since $\frac{x^2}{\sqrt{2\pi}}\exp\brak{-\frac{x^2}{2}}$ is an even function
+	
+	Using integration by parts,
+	\begin{align}
+		\mean{X^2} = \sqrt{\frac{2}{\pi}}  \int_{0}^{\infty} x \cdot x \exp\brak{-\frac{x^2}{2}} \der{x} 
+	\end{align}
+	\begin{multline}
+		= \sqrt{\frac{2}{\pi}} \brak{\left. x \int x \exp\brak{-\frac{x^2}{2}} \der{x}}\right|_0^{\infty} \\- \sqrt{\frac{2}{\pi}}  \int_{0}^{\infty} 1 \cdot \int x \exp\brak{-\frac{x^2}{2}} \der{x}
+	\end{multline}
+	
+	Substitute $t = \frac{x^2}{2} \implies \der{t} = x\der{x}$
+	\begin{align}
+		\int x \exp\brak{-\frac{x^2}{2}} \der{x} &= \int \exp(-t) \der{t} \\
+		&= - \exp(-t) \\
+		&= - \exp\brak{-\frac{x^2}{2}}
+	\end{align}
+	Now,
+	\begin{align}
+		\left. -x \exp\brak{-\frac{x^2}{2}} \right|_0^{\infty} = 0 - 0 = 0 \\
+		\because \lim_{x\to\infty} x \exp\brak{-\frac{x^2}{2}} = \lim_{x\to\infty} \frac{x}{\exp\brak{\frac{x^2}{2}}} =0
+	\end{align}
+	as exponential function grows much faster than a polynomial function
+	
+	Also, 
+	\begin{align}
+		&\int_0^{\infty} - \exp\brak{-\frac{x^2}{2}} \der{x} \\
+		\xleftrightarrow{x = t\sqrt{2}} &\int_0^{\infty} -\exp(-t^2) \der{t}\sqrt{2} \\
+		&= -{\sqrt{2}} \int_0^{\infty} \exp(-t^2) \der{t} \\
+		&= -{\sqrt{2}} \frac{\sqrt{\pi}}{2} \\
+		&= - \sqrt{\frac{\pi}{2}}
+	\end{align}
+	
+	Therefore,
+	\begin{align}
+		\mean{X^2} &= 0 - \sqrt{\frac{2}{\pi}} \brak{- \sqrt{\frac{\pi}{2}}} \\
+		&= 1 \\
+		\therefore \var{X} &= \mean{X^2} - \brak{\mean{X}}^2 \\
+		&= 1 - 0 \\
+		&= 1
+	\end{align}
+	\end{enumerate}
+	
+	\section{From Uniform to Other}
+	\begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
+	\item Generate samples of 
+	\begin{align}
+		V = -2\ln\brak{1-U}
+	\end{align}
+	and plot its CDF
+	
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/3.1.c
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 3.1.c
+		./a.out
+	\end{lstlisting}
+	Download the following Python code that plots Fig. \ref{fig-3.1}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/3.1.py
+	\end{lstlisting}
+	Run the code by executing
+	\begin{lstlisting}
+		python 3.1.py
+	\end{lstlisting}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/3.1.png}
+		\caption{The CDF of $V$}
+		\label{fig-3.1}
+	\end{figure}	
+	
+	\item Find a theoretical expression for $F_V(x)$
+	
+	\solution We have
+	\begin{align}
+		F_V(x) &= \pr{V \le x} \\
+		&= \pr{-2\ln\brak{1-U} \le x} \\
+		&= \pr{\ln\brak{1-U} \ge -\frac{x}{2}} \\
+		&= \pr{1-U \ge \exp\brak{-\frac{x}{2}}} \\
+		&= \pr{U \le 1 - \exp\brak{-\frac{x}{2}}} \\
+		&= F_U\brak{1 - \exp\brak{-\frac{x}{2}}}
+	\end{align}
+	Now,
+	\begin{align}
+		0 \le 1-\exp\brak{-\frac{x}{2}} &< 1 \qquad \text{if } x \ge 0	\\	
+		1-\exp\brak{-\frac{x}{2}} &< 0 \qquad \text{if } x < 0	
+	\end{align}
+	
+	Therefore,
+	\begin{align}
+		F_V(x) = 
+		\begin{cases}
+			1-\exp\brak{-\dfrac{x}{2}} & x \ge 0 \\
+			0 & x < 0
+		\end{cases}
+	\end{align}
+	
+	\end{enumerate}
+	
+	\section{Triangular Distribution}
+	\begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
+	\item Generate 
+	\begin{align}
+		T = U_1+U_2
+	\end{align}
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/4.1.c
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 4.1.c
+		./a.out
+	\end{lstlisting}
+	
+	\item Find the CDF of $T$
+	
+	\solution The CDF of $T$ is given by
+	\begin{align}
+		F_T(t) = \pr{T \le t} = \pr{U_1 + U_2 \le t}	
+	\end{align}		
+	Since $U_1, U_2 \in [0,1] \implies U_1 + U_2 \in [0,2]$
+	Therefore, if $t \ge 2$, then $U_1 + U_2 \le t$ is always true and if $t < 0$, then $U_1 + U_2 \le t$ is always false.
+	
+	Now, fix the value of $U_1$ to be some $x$
+	\begin{align}
+		x + U_2 \le t \implies U_2 \le t - x
+	\end{align}
+	
+	If $0 \le t \le 1$, then $x$ can take all values in $[0,t]$
+	\begin{align}
+		F_T(t)	&= \int_0^t \pr{U_2 \le t - x} p_{U_1}(x) \der{x} \\
+		&= \int_0^t F_{U_2}(t-x) p_{U_1}(x) \der{x}
+	\end{align}
+	\begin{align}
+		0 \le x \le t &\implies 0 \le t - x \le t \le 1 \\
+		&\implies F_{U_2}(t-x) = t - x
+	\end{align}
+	\begin{align}
+		F_T(t) &= \int_0^t (t-x) \cdot 1 \cdot \der{x} \\
+		&= \left. tx - \frac{x^2}{2} \right|_0^t \\
+		&= \frac{t^2}{2}
+	\end{align}
+	
+	If $1 < t < 2$, $x$ can only take values in $[0,1]$ as $U_1 \le 1$
+	\begin{align}
+		F_T(t)	&= \int_0^1 F_{U_2}(t-x) \cdot 1 \cdot \der{x} 
+	\end{align}
+	\begin{align}
+		0 \le x \le t - 1 &\implies 1 \le t - x \le t \\
+		t - 1 \le x \le 1 &\implies 0 < t - 1 \le t - x \le 1
+	\end{align}
+	\begin{align}
+		F_T(t) &= \int_0^{t-1} 1 \der{x} + \int_{t-1}^1 (t-x)\der{x} \\
+		&= t - 1 + t(1 - (t - 1)) - \frac{1}{2} + \frac{(t-1)^2}{2} \\
+		&= t - 1 + 2t - t^2 -\frac{1}{2} + \frac{t^2}{2} + \frac{1}{2} - t \\ 
+		&= -\frac{t^2}{2} + 2t - 1
+	\end{align}
+	
+	Therefore,
+	\begin{align}
+		F_T(t) = 
+		\begin{cases}
+		0 & t < 0 \\
+		\dfrac{t^2}{2} & 0 \le t \le 1 \\
+		 2t -\dfrac{t^2}{2} - 1 & 1 < t < 2 \\
+		1 & t \ge 2
+		\end{cases}
+	\end{align}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/4.2.png}
+		\caption{The CDF of $T$}
+		\label{fig-4.2}
+	\end{figure}	
+	
+	\item Find the PDF of $T$
+	
+	\solution The PDF of $T$ is given by
+	\begin{align}
+		p_T(t) &= \frac{\der{}}{\der{t}} F_T(t) \\
+		\therefore p_T(t) &=
+		\begin{cases}
+			0 & t < 0 \\
+			t & 0 \le t \le 1 \\
+			2 - t & 1 < t < 2 \\
+			0 & t \ge 2
+		\end{cases}
+	\end{align}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/4.3.png}
+		\caption{The PDF of $T$}
+		\label{fig-4.3}
+	\end{figure}		
+	
+	\item Find the theoretical expressions for the PDF and CDF of $T$
+	
+	\solution The theoretical expressions for the CDF and PDF have been found in problems 4.2 and 4.3 respectively
+
+	\item Verify your results through a plot
+	
+	\solution Download the following Python codes that plot Fig. \ref{fig-4.2} and Fig. \ref{fig-4.3}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/4.2.py
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/4.3.py
+	\end{lstlisting}
+	Run the codes by executing
+	\begin{lstlisting}
+		python 4.2.py
+		python 4.3.py
+	\end{lstlisting}
+	
+	
+	\end{enumerate}
+	
+	\section{Maximal Likelihood}
+	\begin{enumerate}[label=\thesection.\arabic*,ref=\thesection.\theenumi]
+	\item Generate equiprobable 	$X \in \cbrak{-1, 1}$
+	
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/5.1.c
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/header.h
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 5.1.c
+		./a.out
+	\end{lstlisting}
+	
+	\item Generate 
+	\begin{align}
+		Y = AX+N
+	\end{align}
+	where $A = 5 ~\mathrm{dB}, X \in \cbrak{-1, 1}$ is Bernoulli and $N \sim \mathcal{N}(0,1)$
+	
+	\solution Download the C source code by executing the following commands
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/5.2.c
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/header.h
+	\end{lstlisting}
+	Compile and run the C program by executing the following
+	\begin{lstlisting}
+		cc -lm 5.2.c
+		./a.out
+	\end{lstlisting}
+	
+	\item Plot $Y$
+	
+	\solution  Download the following Python code that plots Fig. \ref{fig-5.3}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/5.3.py
+	\end{lstlisting}
+	Run the code by executing
+	\begin{lstlisting}
+		python 5.3.py
+	\end{lstlisting}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/5.3.png}
+		\caption{Plot of $Y$}
+		\label{fig-5.3}
+	\end{figure}
+	
+	\item Guess how to estimate $X$ from $Y$
+	
+	\solution
+	\begin{align}
+		X = 
+		\begin{cases}
+			1 & Y > 0 \\
+			-1 & Y < 0
+		\end{cases}
+	\end{align}
+	
+	\item Find 
+	\begin{align}
+		P_{e|0} = \pr{\hat{X} = -1|X=1}
+	\end{align}
+	and 
+	\begin{align}
+		P_{e|1} = \pr{\hat{X} = 1|X=-1}
+	\end{align}
+	
+	\solution 
+	\begin{align}
+		\pr{\hat{X}=-1|X=1} &= \pr{Y<0|X=1} \\
+		&= \pr{A+N<0} \\
+		&= \pr{N<-5} \\
+		&= 1 - \pr{N>-5} \\
+		&= 1 - Q(-5)	\\
+		&= Q(5)
+	\end{align}
+	where $Q(x) = \pr{N>x}$ is the Q-function	
+	\begin{align}
+		Q(x) = 1 - Q(-x) \qquad \forall x \in \mathbb{R}
+	\end{align}
+	
+	\begin{align}
+		\pr{\hat{X}=1|X=-1} &= \pr{Y>0|X=-1} \\
+		&= \pr{-A+N>0} \\
+		&= \pr{N>5} \\
+		&= Q(5)		
+	\end{align}
+	
+	\item Find $P_e$ assuming that $X$ has equiprobable symbols
+	
+	\solution 
+	\begin{align}
+		P_e = \pr{X=-1} P_{e|0} + \pr{X=1} P_{e|1}
+	\end{align}
+	Since $X$ has equiprobable symbols, $\pr{X=-1} = \pr{X=1} = \frac12$
+	\begin{align}
+		P_e &= \frac12 Q(5) + \frac12 Q(5) \\
+		&= Q(5)	
+	\end{align}		
+	
+	\item Verify by plotting the theoretical $P_e$ with respect to $A$ from $0$ to $10 ~\mathrm{dB}$
+	
+	\solution Download the following Python code that plots Fig. \ref{fig-5.7}
+	\begin{lstlisting}
+		wget https://github.com/Ankit-Saha-2003/AI1110/raw/main/Random-Numbers/codes/5.7.py
+	\end{lstlisting}
+	Run the code by executing
+	\begin{lstlisting}
+		python 5.7.py
+	\end{lstlisting}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{./figs/5.7.png}
+		\caption{Plot of $P_e$}
+		\label{fig-5.7}
+	\end{figure}
+	
+	\item Now, consider a threshold $\delta$  while estimating $X$ from $Y$. Find the value of $\delta$ that minimizes the theoretical $P_e$
+	
+	\solution 
+	\begin{align}
+		X &= 
+		\begin{cases}
+			1 & Y > \delta \\
+			-1 & Y < \delta
+		\end{cases} \\
+		P_{e|0} &= \pr{\hat{X} = -1|X=1} \\
+		&= \pr{Y<\delta | X=1} \\
+		&= \pr{A+N < \delta} \\
+		&= \pr{N < \delta - 5} \\
+		&= Q(5 - \delta) \\
+		P_{e|1} &= \pr{\hat{X} = 1|X=-1} \\
+		&= \pr{Y>\delta | X=-1} \\
+		&= \pr{-A+N > \delta} \\
+		&= \pr{N > \delta + 5} \\
+		&= Q(5 + \delta) \\
+	\end{align}
+	Now, $P_e$ is given by
+	\begin{align}
+		P_e &= \pr{X=-1} P_{e|0} + \pr{X=1} P_{e|1} \\
+		&= \frac12 Q(5 - \delta) + \frac12 Q(5 + \delta) \\
+		&= \frac{Q(5 - \delta) + Q(5 + \delta)}{2} \\
+		&= g(\delta) 
+	\end{align}
+	
+	On differentiating $g$ with respect to $\delta$, we get
+	\begin{align}
+		g'(\delta) = \frac{Q'(5 + \delta) - Q'(5 - \delta)}{2}
+	\end{align}
+	
+	Recall the definition of $Q(x)$
+	\begin{align}
+		Q(x) &= \int_x^\infty \frac{1}{\sqrt{2\pi}} \exp\brak{-\frac{u^2}{2}} \der{u} \\
+		\implies Q'(x) &= - \frac{1}{\sqrt{2\pi}} \exp\brak{-\frac{x^2}{2}}
+	\end{align}
+	
+	Thus,
+	\begin{align}
+		g'(\delta) &= \frac{\exp\brak{-\frac{(5-\delta)^2}{2}} - \exp\brak{-\frac{(5+\delta)^2}{2}}}{2\sqrt{2\pi}} \\
+		g'(\delta) = 0 &\implies (5-\delta)^2 = (5+\delta)^2 \\
+		&\implies |5-\delta| = |5+\delta| \\
+		&\implies \delta = 0
+	\end{align}
+	\begin{multline}
+		g''(\delta) = \frac{(5-\delta)}{2\sqrt{2\pi}} \exp\brak{-\frac{(5-\delta)^2}{2}} \\+ \frac{(5+\delta)}{2\sqrt{2\pi}} \exp\brak{-\frac{(5+\delta)^2}{2}}
+	\end{multline}
+	\begin{align}
+		g''(0) = \frac{5}{\sqrt{2\pi}} \exp\brak{-\frac{25}{2}} > 0
+	\end{align}
+	
+	Therefore, $\hat{\delta} = 0$ is a minima and it is what minimizes $P_e$
+	
+	\item Repeat the above exercise when 
+	\begin{align}
+		p_{X}(-1) = p
+	\end{align}
+	
+	\solution	
+	\begin{align}
+		P_e &= p_X(1) P_{e|0} + p_X(-1) P_{e|1} \\
+		&= (1-p) Q(5-\delta) + p Q(5+\delta) \\
+		&= g(\delta)
+	\end{align}
+	
+	On differentiating $g$ with respect to $\delta$, we get
+	\begin{align}
+		g'(\delta) = \frac{(1-p)\exp\brak{-\frac{(5-\delta)^2}{2}} - p\exp\brak{-\frac{(5+\delta)^2}{2}}}{\sqrt{2\pi}} 
+	\end{align}
+	
+	$g'(\delta) = 0$ when
+	\begin{align}
+			&(1-p)\exp\brak{-\frac{(5-\delta)^2}{2}} = p\exp\brak{-\frac{(5+\delta)^2}{2}} \\
+			\implies &\exp\brak{\frac{(5+\delta)^2 - (5-\delta)^2}{2}} = \frac{p}{1-p} \\
+			\implies &\exp\brak{10\delta} = \frac{p}{1-p} \\
+			\therefore &~\hat{\delta} = \frac{1}{10} \ln\frac{p}{1-p}
+	\end{align}
+	
+	\item Repeat the above exercise using the MAP criterion	
+	
+	\solution The PDF of $X|Y$ is given by
+	\begin{align}
+		p_{X|Y}(x|y) = 	\frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}
+	\end{align}
+		 
+	Assuming $X$ has equiprobable symbols, $p_X(x) = \frac12, \quad x = -1, 1$
+	
+	\begin{align}
+		p_Y(y) &= p_X(-1) p_{Y|X}(y|-1) + p_X(1) p_{Y|X}(y|1) \\
+		&= \frac12 \pr{-A+N=y} + \frac12 \pr{A+N=y} \\
+		&= \frac{p_N(y+5) + p_N(y-5)}{2} \\
+		&= \frac{\exp\brak{-\frac{(y+5)^2}{2}} + \exp\brak{-\frac{(y-5)^2}{2}}}{2\sqrt{2\pi}} \\
+	\end{align}
+	
+	Now,
+	\begin{align}		
+		p_{X|Y}(1|y) &= \frac{\pr{A+N=y} p_X(1)}{p_Y(y)} \\
+		&= \frac{p_N(y-5) p_X(1)}{p_Y(y)} \\
+		&= \frac{\exp\brak{-\frac{(y-5)^2}{2}}}{2\brak{\exp\brak{-\frac{(y+5)^2}{2}} + \exp\brak{-\frac{(y-5)^2}{2}}}} \\
+		&= \frac{1}{2\brak{1 + \exp\brak{\frac{(y-5)^2-(y+5)^2}{2}}}} \\
+		&= \frac{1}{2\brak{1 + \exp(-10y)}}
+	\end{align}
+	
+	Similarly,
+	\begin{align}
+		p_{X|Y}(-1|y) &= \frac{1}{2\brak{1 + \exp(10y)}}
+	\end{align}
+	
+	Now,
+	\begin{align}
+		&p_{X|Y}(1|y) > p_{X|Y}(-1|y) \\
+		\iff &\frac{1}{2\brak{1 + \exp(-10y)}} > \frac{1}{2\brak{1 + \exp(10y)}} \\
+		\iff &\exp(-10y) < \exp(10y) \\
+		\iff &y > 0
+	\end{align}
+	And $p_{X|Y}(1|y) < p_{X|Y}(-1|y) \iff y < 0$
+	
+	Therefore, $X=1$ is more probable than $X=-1$ when $Y>0$ and vice versa
+	
+	Consider now a general Bernoulli random variable $X$ with $p_X(-1) = p, p_X(1) = 1-p$
+	\begin{align}
+		p_Y(y) &= p_X(-1) p_{Y|X}(y|-1) + p_X(1) p_{Y|X}(y|1) \\
+		&= p p_N(y+5) + (1-p) p_N(y-5) \\
+		&= \frac{p\exp\brak{-\frac{(y+5)^2}{2}} + (1-p)\exp\brak{-\frac{(y-5)^2}{2}}}{\sqrt{2\pi}}
+	\end{align}
+	\begin{align}
+		p_{X|Y}(1|y) &= \frac{p_{Y|X}(y|1) p_X(1)}{p_Y(y)} \\
+		&= \frac{(1-p)\exp\brak{-\frac{(y-5)^2}{2}}}{p\exp\brak{-\frac{(y+5)^2}{2}} + (1-p)\exp\brak{-\frac{(y-5)^2}{2}}} \\
+		&= \frac{1-p}{1-p + p\exp(-10y)}
+	\end{align}
+	
+	Similarly,
+	\begin{align}
+		p_{X|Y}(-1|y) &= \frac{p}{p + (1-p)\exp(10y)}
+	\end{align}
+	
+	Now,
+	\begin{align}
+		&p_{X|Y}(1|y) > p_{X|Y}(-1|y) \\
+		&\iff \frac{1-p}{1-p + p\exp(-10y)} > \frac{p}{p + (1-p)\exp(10y)} \\
+		&\iff 1 + \frac{p}{1-p}\exp(-10y) < 1 + \frac{1-p}{p}\exp(10y) \\
+		&\iff \exp(20y) > \brak{\frac{p}{1-p}}^2 \\
+		&\iff y > \frac{1}{10} \ln\frac{p}{1-p} = \hat{\delta}
+	\end{align}
+	
+	and
+	\begin{align}
+		&p_{X|Y}(1|y) < p_{X|Y}(-1|y) \\
+		&\iff \frac{1-p}{1-p + p\exp(-10y)} < \frac{p}{p + (1-p)\exp(10y)} \\
+		&\iff 1 + \frac{p}{1-p}\exp(-10y) > 1 + \frac{1-p}{p}\exp(10y) \\
+		&\iff \exp(20y) < \brak{\frac{p}{1-p}}^2 \\
+		&\iff y < \frac{1}{10} \ln\frac{p}{1-p} = \hat{\delta}
+	\end{align}
+	Therefore, $X=1$ is more probable than $X=-1$ when $Y>\hat{\delta}$ and vice versa
+	\end{enumerate}
+\end{document}
