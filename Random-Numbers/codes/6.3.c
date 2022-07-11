@@ -17,9 +17,7 @@ int main() {
 		return 1;
 	}
 	for (int i = 0; i < NUM; i++) {
-		double X1 = randomGaussian(12);
-		double X2 = randomGaussian(12);
-		fprintf(fp, "%lf\n", sqrt(X1*X1 + X2*X2));
+		fprintf(fp, "%lf\n", randomRayleigh(1));
 	}
 	fclose(fp);
 	return 0;	
