@@ -1214,7 +1214,7 @@
 	\begin{figure}
 		\centering
 		\includegraphics[width=\columnwidth]{./figs/8.1.png}
-		\caption{Plot of $\mbf{y}|\mbf{s}_0$ and $\mbf{y}|\mbf{s}_1$}
+		\caption{Plot of $\mbf{y}|\mbf{s}_0$ and $\mbf{y}|\mbf{s}_1$ for $A = 5~\mathrm{dB}$}
 		\label{fig-8.1}
 	\end{figure}
 	
@@ -1235,9 +1235,9 @@
 	\end{align}
 	
 	\item Plot 
-	\begin{equation} 
+	\begin{align} 
 		P_e = \pr{\hat{\vec{x}} = \vec{s}_1|\vec{x} = \vec{s}_0}
-	\end{equation}
+	\end{align}
 	with respect to the SNR from $0$ to $10$ $\mathrm{dB}$
 	
 	\solution Download the C source code to generate the data by executing the following commands
@@ -1267,5 +1267,108 @@
 		\label{fig-8.3}
 	\end{figure}
 	
+	\item Obtain an expression for $P_e$. Verify this by comparing the theory and simulation plots on the same graph
+	
+	\solution 
+	\begin{align}
+		P_e &= \pr{\hat{\vec{x}} = \vec{s}_1|\vec{x} = \vec{s}_0} \\
+		&= \pr{y_2 - y_1 > 0 |x_1=1, x_2=0} \\
+		&= \pr{(A(0) + n_2) - (A(1) - n_1) > 0} \\
+		&= \pr{n_2 - n_1 > A}
+	\end{align}
+	
+	Since $n_1, n_2 \sim \gauss{0}{1}$, $n_2 - n_1$ also has a Gaussian distribution because a linear combination of Gaussian random variables is also a Gaussian random variable. 
+	\begin{align}
+		\mean{n_2 - n_1} &= \mean{n_2} - \mean{n_1} \\
+		&= 0 - 0 \\
+		&= 0 \\
+		\var{n_2 - n_1} &= \var{n_2}  + \var{n_1} \\
+		&= 1 + 1 \\
+		&= 2 \\
+		\therefore n_2 - n_1 &\sim \gauss{0}{2}
+	\end{align}
+	
+	Thus,
+	\begin{align}
+		P_e &= \pr{n_2 - n_1 > A} \\
+		&= \int_A^{\infty} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\brak{-\frac{x^2}{2\sigma^2}} \der{x}
+	\end{align}
+	Substitute $\frac{x}{\sigma} = u \implies \der{x} = \sigma \der{u}$
+	\begin{align}
+		P_e &= \int_{\frac{A}{\sigma}}^{\infty} \frac{1}{\sqrt{2\pi}} \frac{1}{\sigma}  \exp\brak{-\frac{u^2}{2}} \sigma \der{u} \\
+		&= \int_{\frac{A}{\sigma}}^{\infty} \frac{1}{\sqrt{2\pi}} \exp\brak{-\frac{u^2}{2}} \der{u} \\
+		&= Q\brak{\frac{A}{\sigma}}
+	\end{align}
+	
+	Therefore,
+	\begin{align}
+		P_e = Q\brak{\frac{A}{\sqrt{2}}} = Q\brak{\sqrt{\frac{\text{SNR}}{2}}}
+	\end{align}
+	as 
+	\begin{align}
+		\text{SNR} = A^2
+	\end{align}
+	
+	Now, consider a threshold $\delta$ while estimating $\hat{\vec{x}}$. 
+	\begin{align}
+		\hat{\vec{x}} = 
+		\begin{cases}
+			\vec{s}_0 & y_2 - y_1 < \delta \\
+			\vec{s}_1 & y_2 - y_1 > \delta
+		\end{cases}
+	\end{align}
+	
+	We have to find the $\delta$ that minimizes $P_e$
+	\begin{align}
+		P_{e|\vec{s}_1} &= \pr{\hat{\vec{x}} = \vec{s}_1|\vec{x} = \vec{s}_0} \\
+		&= \pr{y_2 - y_1 > \delta|x_1 = 1, x_2=0} \\
+		&= \pr{(A(0)+n_2) - (A(1)+n_1) > \delta } \\
+		&= \pr{n_2 - n_1 > A + \delta} \\
+		&= Q\brak{\frac{A+\delta}{\sqrt{2}}}
+	\end{align}
+	
+	Similarly,
+	\begin{align}
+		P_{e|\vec{s}_0} &= \pr{\hat{\vec{x}} = \vec{s}_0|\vec{x} = \vec{s}_1} \\
+		&= \pr{y_2 - y_1 < \delta|x_1 = 0, x_2=1} \\
+		&= \pr{A + n_2 - n_1 < \delta} \\
+		&= \pr{n_2 - n_1 < \delta - A} \\
+		&= \pr{n_2 - n_1 > A-\delta} \\
+		&= Q\brak{\frac{A-\delta}{\sqrt{2}}}
+	\end{align}
+
+	Assuming $\vec{x}$ has equiprobable symbols,
+	\begin{align}
+		\pr{\vec{x} = \vec{s}_0} = \pr{\vec{x} = \vec{s}_1} = \frac{1}{2}
+	\end{align}
+	\begin{align}
+		P_e &= \pr{\vec{x} = \vec{s}_0} P_{e|\vec{s}_1} + \pr{\vec{x} = \vec{s}_1} P_{e|\vec{s}_0} \\
+		&= \frac{1}{2} P_{e|\vec{s}_1} + \frac{1}{2} P_{e|\vec{s}_0} \\
+		&= \frac{1}{2} \brak{Q\brak{\frac{A+\delta}{\sqrt{2}}} + Q\brak{\frac{A+\delta}{\sqrt{2}}}}
+	\end{align}
+	
+	On differentiating with respect to $\delta$, we get
+	\begin{align}
+		\frac{\der{P_e}}{\der{\delta}} &= \frac{1}{2\sqrt{2}} Q'\brak{\frac{A+\delta}{\sqrt{2}}} - \frac{1}{2\sqrt{2}} Q'\brak{\frac{A-\delta}{\sqrt{2}}} \\
+		&= \frac{1}{4\pi} \brak{\exp\brak{-\frac{(A-\delta)^2}{4}} - \exp\brak{-\frac{(A+\delta)^2}{4}}}
+	\end{align}
+	
+	Thus,
+	\begin{align}
+		\frac{\der{P_e}}{\der{\delta}} = 0 &\implies (A-\delta)^2 = (A+\delta)^2 \\
+		&\implies |A-\delta| = |A+\delta| \\
+		&\implies \delta = 0
+	\end{align}
+	
+	\begin{multline}
+		\frac{\mathrm{d}^2 P_e}{\der{\delta^2}} = \frac{A-\delta}{8\pi} \exp\brak{-\frac{(A-\delta)^2}{4}} \\
+		+ \frac{A+\delta}{8\pi} \exp\brak{-\frac{(A+\delta)^2}{4}}
+	\end{multline}
+	\begin{align}
+		\left. \frac{\mathrm{d}^2 P_e}{\der{\delta^2}} \right|_{\delta=0} &= \frac{A}{4\pi} \exp\brak{-\frac{A^2}{4}} \\
+		&> 0 \quad (\because A > 0)
+	\end{align}
+	
+	Therefore, $\hat{\delta} = 0$ is a minima that minimizes $P_e$ and our original guess was justified.
 	\end{enumerate}
 \end{document}
